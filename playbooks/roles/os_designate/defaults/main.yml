@@ -52,7 +52,6 @@ designate_galera_user: designate
 designate_rabbitmq_userid: designate
 designate_rabbitmq_vhost: /designate
 
-
 #Designate services info
 designate_role_name: admin
 
@@ -88,8 +87,6 @@ designate_service_in_ldap: false
 # Common apt packages
 designate_apt_packages:
   - rpcbind
-  - rabbitmq-server
-  - mysql-server
   - bind9
   - pdns-server 
   - pdns-backend-mysql
@@ -99,7 +96,6 @@ designate_requires_pip_packages:
   - virtualenv
   - virtualenv-tools
   - python-keystoneclient # Keystoneclient needed to OSA keystone lib
-  - python-designateclient
 
 # Common pip packages
 designate_pip_packages:
