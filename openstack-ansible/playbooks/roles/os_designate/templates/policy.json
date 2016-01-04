@@ -29,7 +29,7 @@
     "get_tld": "rule:admin",
     "update_tld": "rule:admin",
     "delete_tld": "rule:admin",
-    
+
     "create_tsigkey": "rule:admin",
     "find_tsigkeys": "rule:admin",
     "get_tsigkey": "rule:admin",
@@ -109,7 +109,7 @@
     "update_zone_transfer_accept": "rule:admin",
     "delete_zone_transfer_accept": "rule:admin",
 
-     "create_zone_import": "rule:admin_or_owner",
+    "create_zone_import": "rule:admin_or_owner",
     "find_zone_imports": "rule:admin_or_owner",
     "get_zone_import": "rule:admin_or_owner",
     "update_zone_import": "rule:admin_or_owner",
@@ -122,3 +122,4 @@
     "update_zone_export": "rule:admin_or_owner",
     "delete_zone_export": "rule:admin_or_owner"
 }
+

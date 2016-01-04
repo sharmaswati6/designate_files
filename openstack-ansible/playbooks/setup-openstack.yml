@@ -21,5 +21,6 @@
 - include: os-heat-install.yml
 - include: os-horizon-install.yml
 - include: os-ceilometer-install.yml
+- include: os-aodh-install.yml
 - include: os-swift-install.yml
 - include: os-designate-install.yml

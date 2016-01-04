@@ -18,9 +18,10 @@
     command: "ensure_service"
     token: "{{ keystone_auth_admin_token }}"
     endpoint: "{{ keystone_service_adminurl }}"
-    service_name: "{{ service_name }}"
-    service_type: "{{ service_type }}"
-    description: "{{ service_description }}"
+    service_name: "{{ designate_service_name }}"
+    service_type: "{{ designate_service_type }}"
+    description: "{{ designate_service_description }}"
+    insecure: "{{ keystone_service_adminuri_insecure }}"
   register: add_service
   until: add_service|success
   retries: 5
@@ -34,10 +35,10 @@
     command: "ensure_user"
     token: "{{ keystone_auth_admin_token }}"
     endpoint: "{{ keystone_service_adminurl }}"
-    user_name: "{{ service_user_name }}"
-    tenant_name: "{{ service_tenant_name }}"
-    role_name: "{{ role_name }}"
+    user_name: "{{ designate_service_user_name }}"
+    tenant_name: "{{ designate_service_project_name }}"
     password: "{{ designate_service_password }}"
+    insecure: "{{ keystone_service_adminuri_insecure }}"
   register: add_service
   when: not designate_service_in_ldap | bool
   until: add_service|success
@@ -55,9 +56,10 @@
     user_name: "{{ designate_service_user_name }}"
     tenant_name: "{{ designate_service_project_name }}"
     role_name: "{{ designate_role_name }}"
-  register: add_admin_role
+    insecure: "{{ keystone_service_adminuri_insecure }}"
+  register: add_service
   when: not designate_service_in_ldap | bool
-  until: add_admin_role|success
+  until: add_service|success
   retries: 5
   delay: 10
   tags:
@@ -65,21 +67,23 @@
     - designate-service-add
     - designate-setup
 
+
 # Create an endpoint
 - name: Ensure designate endpoint
   keystone:
     command: "ensure_endpoint"
     token: "{{ keystone_auth_admin_token }}"
     endpoint: "{{ keystone_service_adminurl }}"
-    region_name: "{{ service_region }}"
-    service_name: "{{ service_name }}"
-    service_type: "{{ service_type }}"
+    region_name: "{{ designate_service_region }}"
+    service_name: "{{ designate_service_name }}"
+    service_type: "{{ designate_service_type }}"
+    insecure: "{{ keystone_service_adminuri_insecure }}"
     endpoint_list:
-      - url: "{{ service_publicurl }}"
+      - url: "{{ designate_service_publicurl }}"
         interface: "public"
-      - url: "{{ service_adminurl }}"
+      - url: "{{ designate_service_adminurl }}"
         interface: "admin"
-      - url: "{{ service_internalurl }}"
+      - url: "{{ designate_service_internalurl }}"
         interface: "internal"
   register: add_service
   until: add_service|success
@@ -88,3 +92,5 @@
   tags:
     - designate-setup
     - designate-service-add
+
+

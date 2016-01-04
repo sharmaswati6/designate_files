@@ -48,6 +48,17 @@
   tags:
     - designate-dirs
 
+- name: Create designate venv dir
+  file:
+    path: "{{ item.path }}"
+    state: directory
+  with_items:
+    - { path: "/openstack/venvs" }
+    - { path: "{{ designate_venv_bin }}" }
+  when: designate_venv_enabled | bool
+  tags:
+    - designate-dirs
+
 - name: Test for log directory or link
   shell: |
     if [ -h "/var/log/designate"  ]; then
@@ -76,3 +87,7 @@
   tags:
     - designate-dirs
     - designate-logs
+
+- include: designate_messaging_setup.yml
+  when: >
+    inventory_hostname == groups['designate_all'][0]

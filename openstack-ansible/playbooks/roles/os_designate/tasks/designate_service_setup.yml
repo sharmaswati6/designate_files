@@ -28,3 +28,20 @@
     role_name: "{{ designate_role_name }}"
   tags:
     - designate-add-service
+
+- include: designate_service_add.yml
+  vars:
+    service_user_name: "{{ designate_service_user_name }}"
+    service_tenant_name: "{{ designate_service_project_name }}"
+    service_name: "{{ designate_service_v2_name }}"
+    service_type: "{{ designate_service_v2_type }}"
+    service_region: "{{ designate_service_region }}"
+    service_description: "{{ designate_service_v2_description }}"
+    service_password: "{{ designate_service_password }}"
+    service_publicurl: "{{ designate_service_v2_publicurl }}"
+    service_internalurl: "{{ designate_service_v2_internalurl }}"
+    service_adminurl: "{{ designate_service_v2_adminurl }}"
+    role_name: "{{ designate_role_name }}"
+  tags:
+    - designate-add-service
+

@@ -39,3 +39,20 @@
   tags:
     - designate-config
     - designate-post-install
+
+- name: Get designate command path
+  command: which designate
+  register: designate_command_path
+  when:
+    - not designate_venv_enabled | bool
+  tags:
+    - designate-command-bin
+
+- name: Set designate command path
+  set_fact:
+    designate_bin: "{{ designate_command_path.stdout | dirname }}"
+  when:
+    - not designate_venv_enabled | bool
+  tags:
+    - designate-command-bin
+

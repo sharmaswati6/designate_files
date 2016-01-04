@@ -18,25 +18,25 @@
     state: "restarted"
     pattern: "{{ designate_api_program_name }}"
 
-- name: Restart designate central
+- name: Restart designate central 
   service:
     name: "{{ designate_central_program_name }}"
     state: "restarted"
     pattern: "{{ designate_central_program_name }}"
 
-- name: Restart designate pool_manager
+- name: Restart designate pool-manager 
   service:
     name: "{{ designate_pool_manager_program_name }}"
     state: "restarted"
     pattern: "{{ designate_pool_manager_program_name }}"
 
-- name: Restart designate mdns
+- name: Restart designate mdns 
   service:
     name: "{{ designate_mdns_program_name }}"
     state: "restarted"
     pattern: "{{ designate_mdns_program_name }}"
 
-- name: Restart designate sink
+- name: Restart designate sink 
   service:
     name: "{{ designate_sink_program_name }}"
     state: "restarted"
@@ -49,3 +49,4 @@
     pattern: "{{ item }}"
   with_items: designate_service_names
   failed_when: false
+

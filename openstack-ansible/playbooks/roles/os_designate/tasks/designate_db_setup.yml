@@ -38,3 +38,12 @@
     - "%"
   tags:
     - designate-db-setup
+
+- name: Perform a Designate DB sync
+  command: designate-manage database sync
+  sudo: yes
+  sudo_user: "{{ designate_system_user_name }}"
+  tags:
+    - designate-db-sync
+    - designate-setup
+

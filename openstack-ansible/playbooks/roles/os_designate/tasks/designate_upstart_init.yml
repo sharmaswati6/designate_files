@@ -67,3 +67,5 @@
   when: inventory_hostname in groups['designate_sink']
   tags:
     - designate-sink-init
+
+

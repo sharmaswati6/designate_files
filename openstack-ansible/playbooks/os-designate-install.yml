@@ -23,9 +23,9 @@
         name: "{{ container_name }}"
         container_config:
           - "lxc.aa_profile=lxc-openstack"
-      register: container_config
       delegate_to: "{{ physical_host }}"
       when: not is_metal | bool
+      register: container_config
       tags:
         - lxc-aa-profile
     - name: Wait for container ssh
@@ -60,8 +60,24 @@
       tags:
         - designate-logs
         - designate-log-dirs
+    - name: Create log aggregation links
+      file:
+        src: "{{ item.src }}"
+        dest: "{{ item.dest }}"
+        state: "{{ item.state }}"
+        force: "yes"
+      with_items:
+        - { src: "/openstack/log/{{ inventory_hostname }}-designate", dest: "/var/log/designate", state: "link" }
+      when: is_metal | bool
+      tags:
+        - designate-logs
   roles:
-    - { role: "os_designate", tags: [ "os-designate" ] }
+    - role: "os_designate"
+      designate_galera_address: "{{ galera_address }}"
+      designate_venv_tag: "{{ openstack_release }}"
+      designate_venv_download_url: "{{ openstack_repo_url }}/venvs/{{ openstack_release }}/{{ ansible_distribution | lower }}/designate-{{ openstack_release }}.tgz"
+      tags:
+        - "os-designate"
     - { role: "openstack_openrc", tags: [ "openstack-openrc" ] }
     - role: "rsyslog_client"
       rsyslog_client_log_rotate_file: designate_log_rotate
@@ -73,8 +89,11 @@
     - role: "system_crontab_coordination"
       tags:
         - "system-crontab-coordination"
+  vars_files:
+    - defaults/repo_packages/openstack_services.yml
   vars:
     galera_address: "{{ internal_lb_vip_address }}"
     designate_galera_address: "{{ internal_lb_vip_address }}"
     ansible_hostname: "{{ container_name }}"
     is_metal: "{{ properties.is_metal|default(false) }}"
+
