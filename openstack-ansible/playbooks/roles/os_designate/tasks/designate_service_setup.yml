@@ -25,6 +25,5 @@
     service_internalurl: "{{ designate_service_internalurl }}"
     service_publicurl: "{{ designate_service_publicurl }}"
     service_adminurl: "{{ designate_service_adminurl }}"
-    role_name: "{{ designate_role_name }}"
   tags:
     - designate-add-service

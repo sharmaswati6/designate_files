@@ -22,5 +22,9 @@
   when: >
     inventory_hostname == groups['designate_all'][0]
 
+- include: designate_service_setup.yml
+  when: >
+    inventory_hostname == groups['designate_all'][0]
+
 - name: Flush handlers
   meta: flush_handlers
