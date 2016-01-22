@@ -49,8 +49,8 @@ designate_service_endpoint_type: internalURL
 designate_service_name: designate
 designate_service_port: 9001
 designate_service_proto: http
-designate_service_type: dnsaas
-designate_service_description: "DNS as a service"
+designate_service_type: dns
+designate_service_description: "OpenStack DNS service"
 designate_service_project_domain_id: default
 designate_service_user_domain_id: default
 designate_service_user_name: designate

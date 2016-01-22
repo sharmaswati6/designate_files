@@ -36,7 +36,7 @@
     endpoint: "{{ keystone_service_adminurl }}"
     user_name: "{{ service_user_name }}"
     tenant_name: "{{ service_tenant_name }}"
-    role_name: "{{ role_name }}"
+    role_name: "{{ designate_role_name }}"
     password: "{{ designate_service_password }}"
   register: add_service
   when: not designate_service_in_ldap | bool
